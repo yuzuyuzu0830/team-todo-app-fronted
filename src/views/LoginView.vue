@@ -14,6 +14,8 @@
 <script setup lang="ts">
     import {ref} from 'vue'
     import axios from '@/config/axios'
+    import Cookies from 'js-cookie'
+    import { useUserStore } from '@/store/user'
 
     const email = ref<string>('')
     const password = ref<string>('')
@@ -27,7 +29,12 @@
                 password: password.value
             })
             console.log('ログイン成功', res.data)
-            // トークン保存、画面推移など
+            
+            Cookies.set('user_id', res.data.user_id)
+
+            const userStore = useUserStore()
+            userStore.setUserId(res.data.user_id)
+
         } catch (err: any) {
             error.value = "ログイン失敗しました"
             console.error(err)

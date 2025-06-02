@@ -16,10 +16,12 @@
     import axios from '@/config/axios'
     import Cookies from 'js-cookie'
     import { useUserStore } from '@/store/user'
+    import { useRouter } from 'vue-router'
 
     const email = ref<string>('')
     const password = ref<string>('')
     const error = ref<string>('')
+    const router = useRouter()
 
     const handleLogin = async () => {
         error.value =  ''
@@ -35,6 +37,7 @@
             const userStore = useUserStore()
             userStore.setUserId(res.data.user_id)
 
+            router.push('/todos')
         } catch (err: any) {
             error.value = "ログイン失敗しました"
             console.error(err)

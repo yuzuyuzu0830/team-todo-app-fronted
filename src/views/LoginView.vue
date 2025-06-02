@@ -32,10 +32,9 @@
             })
             console.log('ログイン成功', res.data)
             
-            Cookies.set('user_id', res.data.user_id)
-
             const userStore = useUserStore()
             userStore.setUserId(res.data.user_id)
+            userStore.setToken(res.data.token)
 
             router.push('/todos')
         } catch (err: any) {
